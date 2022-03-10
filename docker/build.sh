@@ -6,6 +6,7 @@ export DOCKER_BUILDKIT=${DOCKER_BUILDKIT-1}
 
 echo "Build docker image restic/restic:latest"
 docker build \
+  --no-cache \
   --rm \
   --pull \
   --file docker/Dockerfile \

@@ -595,6 +595,14 @@ func parseConfig(loc location.Location, opts options.Options) (interface{}, erro
 			cfg.AccountKey = os.Getenv("AZURE_ACCOUNT_KEY")
 		}
 
+		if cfg.AccountSuffix == "" {
+			if _, ok := os.LookupEnv("AZURE_ACCOUNT_SUFFIX"); ok {
+				cfg.AccountSuffix = os.Getenv("AZURE_ACCOUNT_SUFFIX")
+			} else {
+				cfg.AccountSuffix = "core.windows.net"
+			}
+		}
+
 		if err := opts.Apply(loc.Scheme, &cfg); err != nil {
 			return nil, err
 		}
