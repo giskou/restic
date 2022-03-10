@@ -38,9 +38,9 @@ var _ restic.Backend = &Backend{}
 func open(cfg Config, rt http.RoundTripper) (*Backend, error) {
 	debug.Log("open, config %#v", cfg)
 
-	client, err := storage.NewBasicClient(cfg.AccountName, cfg.AccountKey)
+	client, err := storage.NewClient(cfg.AccountName, cfg.AccountKey, cfg.AccountSuffix, storage.DefaultAPIVersion, true)
 	if err != nil {
-		return nil, errors.Wrap(err, "NewBasicClient")
+		return nil, errors.Wrap(err, "NewClient")
 	}
 
 	client.HTTPClient = &http.Client{Transport: rt}
